@@ -1,0 +1,49 @@
+{
+  "name": "payflow-frontend",
+  "private": true,
+  "type": "module",
+  "description": "Portal do lojista do PayFlow: Shell + microfrontends com Module Federation",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.22"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n shell,payments,account -c green,blue,magenta \"npm run dev -w @payflow/shell\" \"npm run dev -w @payflow/mfe-payments\" \"npm run dev -w @payflow/mfe-account\"",
+    "build": "npm run build -w @payflow/mfe-payments -w @payflow/mfe-account -w @payflow/shell",
+    "preview": "concurrently -k -n shell,payments,account -c green,blue,magenta \"npm run preview -w @payflow/shell\" \"npm run preview -w @payflow/mfe-payments\" \"npm run preview -w @payflow/mfe-account\"",
+    "lint": "eslint .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test:architecture && npm run test:unit",
+    "test:unit": "npm run test --workspaces --if-present",
+    "test:architecture": "depcruise apps packages --config .dependency-cruiser.cjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@module-federation/vite": "^1.23.5",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/node": "^22",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^10.0.6",
+    "dependency-cruiser": "^18.7.0",
+    "eslint": "^10.13.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.13.0",
+    "jsdom": "^30.1.3",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  },
+  "overrides": {
+    "@module-federation/dts-plugin": {
+      "undici": "7.30.1"
+    }
+  }
+}

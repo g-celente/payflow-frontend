@@ -1,0 +1,16 @@
+{
+  "name": "@payflow/api-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Único ponto que conhece o BFF: URL base, cabeçalhos, tipos das respostas e erros",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  }
+}
